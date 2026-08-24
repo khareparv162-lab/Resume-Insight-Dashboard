@@ -5,18 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resume Insight</title>
     <link rel="stylesheet" href="style.css">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs"
-            type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs" type="module"></script>
 </head>
-
 <body>
-
 <div class="app">
-
-    <!-- SIDEBAR -->
+<!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
-
         <div class="brand">
             <div class="brand-icon">R</div>
             <div class="brand-text">
@@ -24,103 +18,77 @@
                 <span>Scoreboard</span>
             </div>
         </div>
-
         <div class="role-label">VIEW</div>
-
         <nav class="sidebar-nav">
-
             <button class="nav-item active" data-page="student-dashboard">
                 <span class="nav-icon">▦</span>
                 <span>Student Dashboard</span>
             </button>
-
             <button class="nav-item" data-page="resume">
                 <span class="nav-icon">↑</span>
                 <span>Resume Upload</span>
             </button>
-
             <button class="nav-item" data-page="insights">
                 <span class="nav-icon">✦</span>
                 <span>Insights</span>
             </button>
-
             <button class="nav-item" data-page="leaderboard">
                 <span class="nav-icon">♛</span>
                 <span>Leaderboard</span>
             </button>
-
             <button class="nav-item" data-page="profile">
                 <span class="nav-icon">○</span>
                 <span>Profile</span>
             </button>
-
             <button class="nav-item admin-only" data-page="admin-dashboard">
                 <span class="nav-icon">▣</span>
                 <span>Admin Dashboard</span>
             </button>
-
             <button class="nav-item admin-only" data-page="admin-students">
                 <span class="nav-icon">♙</span>
                 <span>Students</span>
             </button>
-
         </nav>
-
         <div class="sidebar-bottom">
-
             <div class="role-switch">
                 <button id="studentMode" class="role-switch-btn active">
                     Student
                 </button>
-
                 <button id="adminMode" class="role-switch-btn">
                     Admin
                 </button>
             </div>
-
         </div>
-
     </aside>
 
-    <!-- MENU TOGGLE -->
+<!-- MENU TOGGLE -->
     <button id="menuToggle" class="menu-toggle" title="Hide menu">
         ☰
     </button>
 
-    <!-- OPEN MENU BUTTON -->
+<!-- OPEN MENU BUTTON -->
     <button id="menuOpen" class="menu-open hidden" title="Open menu">
         ☰
     </button>
 
-
-    <!-- MAIN -->
+<!-- MAIN -->
     <main class="main" id="main">
-
         <header class="topbar">
-
             <div></div>
-
             <div class="topbar-right">
-
                 <div class="user-pill">
                     <div class="avatar" id="headerAvatar">S</div>
-
                     <div>
                         <strong id="headerName">Student</strong>
                         <span id="headerRole">Resume Analyzer</span>
                     </div>
                 </div>
-
             </div>
-
         </header>
 
-
-        <!-- STUDENT DASHBOARD -->
+<!-- STUDENT DASHBOARD -->
         <section id="student-dashboard" class="page active">
-
             <div class="page-heading">
-
                 <div>
                     <span class="eyebrow">Student Portal</span>
                     <h1>Dashboard</h1>
@@ -128,124 +96,88 @@
                         Upload your resume to begin your analysis.
                     </p>
                 </div>
-
                 <button id="downloadReportBtn" class="outline-btn hidden">
                     Download Report
                 </button>
-
             </div>
-
-
             <div id="dashboardEmpty" class="dashboard-empty">
-
                 <div class="empty-upload-icon">↑</div>
-
                 <h2>No resume analyzed yet</h2>
-
                 <p>
                     Upload your resume to get your score, category analysis
                     and personalized improvement insights.
                 </p>
-
                 <button class="dark-btn go-upload">
                     Upload Resume
                 </button>
-
             </div>
-
-
             <div id="dashboardResults" class="hidden">
-
                 <div class="result-top">
-
                     <div class="score-card">
-
                         <span class="card-label">
                             OVERALL RESUME SCORE
                         </span>
-
                         <div class="score-number">
                             <strong id="overallScore">0</strong>
                             <span>/100</span>
                         </div>
-
                         <div class="score-status" id="scoreStatus">
                             Analyzed
                         </div>
-
                         <p id="scoreMessage">
                             Your resume has been analyzed.
                         </p>
-
                     </div>
-
-
                     <div class="student-details-card">
-
                         <div class="card-title-row">
                             <h2>Resume Information</h2>
                             <span class="verified-badge">Analyzed</span>
                         </div>
-
                         <div class="details-grid">
-
                             <div class="detail">
                                 <span>Name</span>
                                 <strong id="resultName">
                                     Not available
                                 </strong>
                             </div>
-
                             <div class="detail">
                                 <span>Education</span>
                                 <strong id="resultEducation">
                                     Not available
                                 </strong>
                             </div>
-
                             <div class="detail">
                                 <span>Skills</span>
                                 <strong id="resultSkills">
                                     Not available
                                 </strong>
                             </div>
-
                             <div class="detail">
                                 <span>Projects</span>
                                 <strong id="resultProjects">
                                     Not available
                                 </strong>
                             </div>
-
                             <div class="detail">
                                 <span>Certifications</span>
                                 <strong id="resultCertifications">
                                     Not available
                                 </strong>
                             </div>
-
                             <div class="detail">
                                 <span>Achievements</span>
                                 <strong id="resultAchievements">
                                     Not available
                                 </strong>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
-
                 <div class="section-title">
                     <span>ANALYSIS</span>
                     <h2>Category-wise scores</h2>
                 </div>
-
-
                 <div class="category-grid">
-
                     <div class="category-card">
                         <div class="category-top">
                             <span>Skills</span>
@@ -253,7 +185,6 @@
                         </div>
                         <p id="skillsFeedback">Not analyzed</p>
                     </div>
-
                     <div class="category-card">
                         <div class="category-top">
                             <span>Projects</span>
@@ -261,7 +192,6 @@
                         </div>
                         <p id="projectsFeedback">Not analyzed</p>
                     </div>
-
                     <div class="category-card">
                         <div class="category-top">
                             <span>Certifications</span>
@@ -269,7 +199,6 @@
                         </div>
                         <p id="certificationsFeedback">Not analyzed</p>
                     </div>
-
                     <div class="category-card">
                         <div class="category-top">
                             <span>Achievements</span>
@@ -277,7 +206,6 @@
                         </div>
                         <p id="achievementsFeedback">Not analyzed</p>
                     </div>
-
                     <div class="category-card">
                         <div class="category-top">
                             <span>Resume Quality</span>
@@ -285,7 +213,6 @@
                         </div>
                         <p id="qualityFeedback">Not analyzed</p>
                     </div>
-
                     <div class="category-card">
                         <div class="category-top">
                             <span>ATS Readiness</span>
@@ -293,19 +220,13 @@
                         </div>
                         <p id="atsFeedback">Not analyzed</p>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
-
-        <!-- RESUME -->
+<!-- RESUME -->
         <section id="resume" class="page">
-
             <div class="page-heading">
-
                 <div>
                     <span class="eyebrow">Student Portal</span>
                     <h1>Resume Upload</h1>
@@ -313,23 +234,15 @@
                         Upload a PDF resume and analyze it directly in your browser.
                     </p>
                 </div>
-
             </div>
-
-
             <div class="upload-layout">
-
                 <div class="upload-card">
-
                     <div class="upload-icon-large">↑</div>
-
                     <h2>Upload your resume</h2>
-
                     <p>
                         PDF format recommended. Your file stays in the browser
                         for this frontend demo.
                     </p>
-
                     <label class="file-button">
                         Choose PDF
                         <input
@@ -338,22 +251,14 @@
                             accept=".pdf,application/pdf"
                         >
                     </label>
-
-
                     <div id="fileSelected" class="file-selected hidden">
-
                         <span>PDF</span>
-
                         <div>
                             <strong id="fileName">resume.pdf</strong>
                             <small id="fileSize">0 KB</small>
                         </div>
-
                     </div>
-
-
                     <div class="upload-actions">
-
                         <button
                             id="analyzeBtn"
                             class="dark-btn analyze-btn"
@@ -361,30 +266,21 @@
                         >
                             Analyze Resume
                         </button>
-
                         <button
                             id="removeFileBtn"
                             class="outline-btn hidden"
                         >
                             Remove
                         </button>
-
                     </div>
-
                     <p id="uploadMessage" class="upload-message"></p>
-
                 </div>
-
             </div>
-
         </section>
 
-
-        <!-- INSIGHTS -->
+<!-- INSIGHTS -->
         <section id="insights" class="page">
-
             <div class="page-heading">
-
                 <div>
                     <span class="eyebrow">Student Portal</span>
                     <h1>Insights</h1>
@@ -392,79 +288,47 @@
                         Review what is strong and what needs improvement.
                     </p>
                 </div>
-
             </div>
-
-
             <div id="insightsEmpty" class="simple-empty">
-
                 <div>✦</div>
-
                 <h2>No insights available</h2>
-
                 <p>
                     Analyze a resume first to generate improvement insights.
                 </p>
-
                 <button class="dark-btn go-upload">
                     Upload Resume
                 </button>
-
             </div>
-
-
             <div id="insightsResults" class="hidden">
-
                 <div class="insight-grid">
-
                     <article class="insight-card">
-
                         <div class="insight-heading">
                             <span class="insight-icon">+</span>
                             <h2>Strengths</h2>
                         </div>
-
                         <ul id="strengthList"></ul>
-
                     </article>
-
-
                     <article class="insight-card">
-
                         <div class="insight-heading">
                             <span class="insight-icon">!</span>
                             <h2>Areas to improve</h2>
                         </div>
-
                         <ul id="improvementList"></ul>
-
                     </article>
-
                 </div>
-
-
                 <div class="recommendation-card">
-
                     <span class="eyebrow">
                         RECOMMENDATIONS
                     </span>
-
                     <h2>Next steps</h2>
-
                     <div id="recommendationList"></div>
-
                 </div>
-
             </div>
-
         </section>
 
-
-        <!-- LEADERBOARD -->
+<!-- LEADERBOARD -->
         <section id="leaderboard" class="page">
-
             <div class="page-heading">
-
                 <div>
                     <span class="eyebrow">Student Portal</span>
                     <h1>Leaderboard</h1>
@@ -473,43 +337,28 @@
                         their resumes.
                     </p>
                 </div>
-
             </div>
-
-
             <div class="leaderboard-card">
-
                 <div class="table-header">
                     <span>RANK</span>
                     <span>STUDENT</span>
                     <span>SCORE</span>
                 </div>
-
                 <div id="leaderboardEmpty" class="leaderboard-empty">
-
                     <div class="empty-upload-icon">♛</div>
-
                     <h2>No leaderboard data yet</h2>
-
                     <p>
                         Student rankings will appear here when analyzed resumes
                         are available.
                     </p>
-
                 </div>
-
                 <div id="leaderboardBody" class="admin-table hidden"></div>
-
             </div>
-
         </section>
 
-
-        <!-- PROFILE -->
+<!-- PROFILE -->
         <section id="profile" class="page">
-
             <div class="page-heading">
-
                 <div>
                     <span class="eyebrow">Student Portal</span>
                     <h1>Profile</h1>
@@ -517,68 +366,44 @@
                         Your profile information is shown after resume analysis.
                     </p>
                 </div>
-
             </div>
-
-
             <div id="profileEmpty" class="simple-empty">
-
                 <div>○</div>
-
                 <h2>No profile information yet</h2>
-
                 <p>
                     Analyze your resume to populate your profile.
                 </p>
-
             </div>
-
-
             <div id="profileResults" class="hidden profile-card">
-
                 <div class="profile-avatar-large" id="profileAvatar">
                     S
                 </div>
-
                 <div class="profile-main">
-
                     <h2 id="profileName">Student</h2>
-
                     <p id="profileEducation">
                         Education not available
                     </p>
-
                 </div>
-
-
                 <div class="profile-fields">
-
                     <div>
                         <span>Skills</span>
                         <strong id="profileSkills">
                             Not available
                         </strong>
                     </div>
-
                     <div>
                         <span>Projects</span>
                         <strong id="profileProjects">
                             Not available
                         </strong>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
-
-        <!-- ADMIN DASHBOARD -->
+<!-- ADMIN DASHBOARD -->
         <section id="admin-dashboard" class="page admin-page">
-
             <div class="page-heading">
-
                 <div>
                     <span class="eyebrow">Administration</span>
                     <h1>Admin Dashboard</h1>
@@ -586,91 +411,61 @@
                         Overview of student resume analysis activity.
                     </p>
                 </div>
-
             </div>
-
-
             <div class="admin-stat-grid">
-
                 <div class="admin-stat">
                     <span>Total Students</span>
                     <strong id="adminStudents">0</strong>
                     <small>Students in this session</small>
                 </div>
-
                 <div class="admin-stat">
                     <span>Resumes Uploaded</span>
                     <strong id="adminUploaded">0</strong>
                     <small>Uploaded in this session</small>
                 </div>
-
                 <div class="admin-stat">
                     <span>Resumes Analyzed</span>
                     <strong id="adminAnalyzed">0</strong>
                     <small>Completed analysis</small>
                 </div>
-
                 <div class="admin-stat">
                     <span>Average Score</span>
                     <strong id="adminAverage">—</strong>
                     <small>Based on analyzed resumes</small>
                 </div>
-
             </div>
-
-
             <div class="admin-panel">
-
                 <div class="panel-heading">
-
                     <div>
                         <span class="eyebrow">RECENT ACTIVITY</span>
                         <h2>Student resumes</h2>
                     </div>
-
                     <button id="clearDataBtn" class="outline-btn">
                         Clear All Data
                     </button>
-
                 </div>
-
-
                 <div id="adminRecentEmpty" class="simple-empty compact">
-
                     <div>▣</div>
-
                     <h2>No student activity</h2>
-
                     <p>
                         Uploaded and analyzed resumes will appear here.
                     </p>
-
                 </div>
-
-
                 <div id="adminRecentTable" class="admin-table hidden">
-
                     <div class="admin-row admin-table-head">
                         <span>Student</span>
                         <span>Resume</span>
                         <span>Status</span>
                         <span>Score</span>
                     </div>
-
                     <div id="adminRows"></div>
-
                 </div>
-
             </div>
-
         </section>
 
-
-        <!-- ADMIN STUDENTS -->
+<!-- ADMIN STUDENTS -->
         <section id="admin-students" class="page admin-page">
-
             <div class="page-heading">
-
                 <div>
                     <span class="eyebrow">Administration</span>
                     <h1>Students</h1>
@@ -678,46 +473,27 @@
                         Student resume records available in this frontend session.
                     </p>
                 </div>
-
             </div>
-
-
             <div id="studentsEmpty" class="simple-empty">
-
                 <div>♙</div>
-
                 <h2>No students to display</h2>
-
                 <p>
                     Student records will appear after resume analysis.
                 </p>
-
             </div>
-
-
             <div id="studentsTable" class="admin-panel hidden">
-
                 <div class="admin-row admin-table-head">
                     <span>Student</span>
                     <span>Education</span>
                     <span>Resume</span>
                     <span>Score</span>
                 </div>
-
                 <div id="studentRows"></div>
-
             </div>
-
         </section>
-
     </main>
-
 </div>
-
-
 <div id="toast" class="toast"></div>
-
 <script type="module" src="script.js"></script>
-
 </body>
 </html>

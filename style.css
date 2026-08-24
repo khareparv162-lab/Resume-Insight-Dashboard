@@ -1,64 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
 :root {
     --navy: #102332;
     --navy-2: #162d3d;
     --teal: #0798b2;
     --teal-dark: #087f96;
     --teal-light: #e7f6f8;
-
     --page: #f5f8fa;
     --card: #ffffff;
-
     --text: #17212b;
     --muted: #687786;
     --light-muted: #8b98a5;
-
     --border: #dbe3e8;
     --border-dark: #cdd8df;
-
     --green: #229c61;
     --red: #c64b4b;
-
     --shadow: 0 4px 16px rgba(24,48,64,.06);
 }
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-
 body {
     font-family: "Inter", sans-serif;
     background: var(--page);
     color: var(--text);
     min-height: 100vh;
 }
-
 button,
 input {
     font: inherit;
 }
-
 button {
     cursor: pointer;
 }
-
 .hidden {
     display: none !important;
 }
-
-
 /* APP */
-
 .app {
     min-height: 100vh;
 }
-
-
 /* SIDEBAR */
-
 .sidebar {
     position: fixed;
     inset: 0 auto 0 0;
@@ -72,7 +55,6 @@ button {
     z-index: 20;
     transition: width .25s ease, transform .25s ease;
 }
-
 .brand {
     height: 56px;
     display: flex;
@@ -81,7 +63,6 @@ button {
     padding: 0 9px;
     margin-bottom: 22px;
 }
-
 .brand-icon {
     width: 40px;
     height: 40px;
@@ -95,20 +76,17 @@ button {
     font-weight: 700;
     flex-shrink: 0;
 }
-
 .brand h2 {
     font-size: 15px;
     font-weight: 600;
     color: #f5f9fb;
 }
-
 .brand span {
     display: block;
     margin-top: 3px;
     color: #91a6b4;
     font-size: 10px;
 }
-
 .role-label {
     padding: 0 13px;
     margin-bottom: 8px;
@@ -117,13 +95,11 @@ button {
     letter-spacing: .9px;
     font-weight: 600;
 }
-
 .sidebar-nav {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
-
 .nav-item {
     width: 100%;
     border: 0;
@@ -139,36 +115,29 @@ button {
     font-size: 12px;
     transition: .18s ease;
 }
-
 .nav-item:hover {
     background: #193344;
     color: white;
 }
-
 .nav-item.active {
     background: var(--teal);
     color: white;
 }
-
 .nav-icon {
     width: 18px;
     display: inline-flex;
     justify-content: center;
     font-size: 14px;
 }
-
 .admin-only {
     display: none;
 }
-
 .sidebar.admin-view .admin-only {
     display: flex;
 }
-
 .sidebar-bottom {
     margin-top: auto;
 }
-
 .role-switch {
     display: flex;
     background: #0b1c29;
@@ -177,7 +146,6 @@ button {
     padding: 3px;
     margin-bottom: 12px;
 }
-
 .role-switch-btn {
     flex: 1;
     border: 0;
@@ -188,15 +156,11 @@ button {
     font-size: 10px;
     font-weight: 600;
 }
-
 .role-switch-btn.active {
     background: white;
     color: var(--navy);
 }
-
-
 /* MENU BUTTON */
-
 .menu-toggle,
 .menu-open {
     position: fixed;
@@ -212,44 +176,31 @@ button {
     z-index: 50;
     transition: left .25s ease;
 }
-
 .menu-toggle:hover,
 .menu-open:hover {
     background: #f4f8f9;
 }
-
 .menu-open {
     left: 18px;
 }
-
-
 /* COLLAPSED SIDEBAR */
-
 body.sidebar-hidden .sidebar {
     transform: translateX(-100%);
 }
-
 body.sidebar-hidden .main {
     margin-left: 0;
 }
-
 body.sidebar-hidden .menu-toggle {
     display: none;
 }
-
-
 /* MAIN */
-
 .main {
     margin-left: 304px;
     min-height: 100vh;
     padding: 0 28px 50px;
     transition: margin-left .25s ease;
 }
-
-
 /* TOPBAR */
-
 .topbar {
     height: 76px;
     display: flex;
@@ -258,13 +209,11 @@ body.sidebar-hidden .menu-toggle {
     border-bottom: 1px solid var(--border);
     margin-bottom: 35px;
 }
-
 .topbar-right {
     display: flex;
     align-items: center;
     gap: 17px;
 }
-
 .user-pill {
     height: 43px;
     display: flex;
@@ -275,7 +224,6 @@ body.sidebar-hidden .menu-toggle {
     border: 1px solid var(--border);
     border-radius: 24px;
 }
-
 .avatar {
     width: 34px;
     height: 34px;
@@ -288,43 +236,34 @@ body.sidebar-hidden .menu-toggle {
     font-size: 10px;
     font-weight: 600;
 }
-
 .user-pill strong {
     display: block;
     font-size: 11px;
 }
-
 .user-pill span {
     display: block;
     color: var(--light-muted);
     font-size: 9px;
     margin-top: 2px;
 }
-
-
 /* PAGES */
-
 .page {
     display: none;
 }
-
 .page.active {
     display: block;
     animation: pageIn .18s ease;
 }
-
 @keyframes pageIn {
     from {
         opacity: 0;
         transform: translateY(4px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
-
 .page-heading {
     min-height: 66px;
     display: flex;
@@ -333,7 +272,6 @@ body.sidebar-hidden .menu-toggle {
     gap: 20px;
     margin-bottom: 24px;
 }
-
 .eyebrow {
     display: block;
     color: #688092;
@@ -342,23 +280,18 @@ body.sidebar-hidden .menu-toggle {
     font-weight: 600;
     margin-bottom: 5px;
 }
-
 .page-heading h1 {
     font-size: 25px;
     line-height: 1.2;
     font-weight: 600;
     letter-spacing: -.4px;
 }
-
 .page-heading p {
     color: var(--muted);
     font-size: 11px;
     margin-top: 6px;
 }
-
-
 /* BUTTONS */
-
 .dark-btn {
     border: 0;
     background: var(--navy);
@@ -369,18 +302,15 @@ body.sidebar-hidden .menu-toggle {
     font-weight: 600;
     transition: .18s ease;
 }
-
 .dark-btn:hover {
     background: var(--navy-2);
     transform: translateY(-1px);
 }
-
 .dark-btn:disabled {
     opacity: .45;
     cursor: not-allowed;
     transform: none;
 }
-
 .outline-btn {
     border: 1px solid var(--border-dark);
     background: white;
@@ -390,14 +320,10 @@ body.sidebar-hidden .menu-toggle {
     font-size: 10px;
     font-weight: 600;
 }
-
 .outline-btn:hover {
     background: #f8fafb;
 }
-
-
 /* EMPTY */
-
 .dashboard-empty,
 .simple-empty {
     background: white;
@@ -410,16 +336,13 @@ body.sidebar-hidden .menu-toggle {
     justify-content: center;
     text-align: center;
 }
-
 .dashboard-empty {
     min-height: 465px;
 }
-
 .simple-empty {
     min-height: 390px;
     border-radius: 11px;
 }
-
 .empty-upload-icon,
 .simple-empty > div {
     width: 58px;
@@ -433,14 +356,12 @@ body.sidebar-hidden .menu-toggle {
     font-size: 24px;
     margin-bottom: 17px;
 }
-
 .dashboard-empty h2,
 .simple-empty h2 {
     font-size: 17px;
     font-weight: 600;
     margin-bottom: 7px;
 }
-
 .dashboard-empty p,
 .simple-empty p {
     max-width: 440px;
@@ -449,23 +370,18 @@ body.sidebar-hidden .menu-toggle {
     line-height: 1.65;
     margin-bottom: 19px;
 }
-
 .simple-empty.compact {
     min-height: 250px;
     border: 0;
     box-shadow: none;
 }
-
-
 /* RESULTS */
-
 .result-top {
     display: grid;
     grid-template-columns: 31% 1fr;
     gap: 14px;
     margin-bottom: 35px;
 }
-
 .score-card,
 .student-details-card,
 .category-card,
@@ -481,7 +397,6 @@ body.sidebar-hidden .menu-toggle {
     border-radius: 11px;
     box-shadow: var(--shadow);
 }
-
 .score-card {
     min-height: 280px;
     padding: 28px;
@@ -489,32 +404,27 @@ body.sidebar-hidden .menu-toggle {
     flex-direction: column;
     justify-content: center;
 }
-
 .card-label {
     color: #6b8090;
     font-size: 10px;
     letter-spacing: .4px;
     margin-bottom: 12px;
 }
-
 .score-number {
     display: flex;
     align-items: baseline;
     gap: 8px;
     margin-bottom: 8px;
 }
-
 .score-number strong {
     font-size: 56px;
     font-weight: 600;
     letter-spacing: -2px;
 }
-
 .score-number span {
     color: var(--muted);
     font-size: 15px;
 }
-
 .score-status {
     display: inline-flex;
     width: fit-content;
@@ -526,30 +436,25 @@ body.sidebar-hidden .menu-toggle {
     font-weight: 600;
     margin-bottom: 13px;
 }
-
 .score-card p {
     color: var(--muted);
     font-size: 10px;
     line-height: 1.5;
 }
-
 .student-details-card {
     min-height: 280px;
     padding: 25px;
 }
-
 .card-title-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 25px;
 }
-
 .card-title-row h2 {
     font-size: 14px;
     font-weight: 600;
 }
-
 .verified-badge {
     color: var(--teal-dark);
     background: var(--teal-light);
@@ -558,14 +463,12 @@ body.sidebar-hidden .menu-toggle {
     font-size: 8px;
     font-weight: 600;
 }
-
 .details-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 45px;
     row-gap: 22px;
 }
-
 .detail span {
     display: block;
     color: #718493;
@@ -574,7 +477,6 @@ body.sidebar-hidden .menu-toggle {
     letter-spacing: .5px;
     margin-bottom: 5px;
 }
-
 .detail strong {
     display: block;
     color: #15222c;
@@ -582,14 +484,10 @@ body.sidebar-hidden .menu-toggle {
     font-weight: 500;
     line-height: 1.4;
 }
-
-
 /* CATEGORY */
-
 .section-title {
     margin-bottom: 14px;
 }
-
 .section-title span {
     display: block;
     color: #718493;
@@ -598,41 +496,34 @@ body.sidebar-hidden .menu-toggle {
     font-weight: 600;
     margin-bottom: 4px;
 }
-
 .section-title h2 {
     font-size: 16px;
     font-weight: 600;
 }
-
 .category-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 13px;
 }
-
 .category-card {
     min-height: 132px;
     padding: 18px;
     transition: .18s ease;
 }
-
 .category-card:hover {
     border-color: #bfd0d9;
     transform: translateY(-1px);
 }
-
 .category-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
 }
-
 .category-top span {
     font-size: 12px;
     font-weight: 500;
 }
-
 .category-top b {
     min-width: 55px;
     text-align: center;
@@ -643,21 +534,16 @@ body.sidebar-hidden .menu-toggle {
     font-size: 10px;
     font-weight: 600;
 }
-
 .category-card p {
     color: var(--muted);
     font-size: 10px;
     line-height: 1.5;
 }
-
-
 /* UPLOAD */
-
 .upload-layout {
     display: grid;
     grid-template-columns: 1fr;
 }
-
 .upload-card {
     min-height: 470px;
     display: flex;
@@ -668,7 +554,6 @@ body.sidebar-hidden .menu-toggle {
     padding: 35px;
     border-style: dashed;
 }
-
 .upload-icon-large {
     width: 62px;
     height: 62px;
@@ -681,12 +566,10 @@ body.sidebar-hidden .menu-toggle {
     font-size: 25px;
     margin-bottom: 17px;
 }
-
 .upload-card h2 {
     font-size: 18px;
     margin-bottom: 7px;
 }
-
 .upload-card > p {
     max-width: 410px;
     color: var(--muted);
@@ -694,7 +577,6 @@ body.sidebar-hidden .menu-toggle {
     line-height: 1.6;
     margin-bottom: 18px;
 }
-
 .file-button {
     display: inline-block;
     background: var(--navy);
@@ -705,15 +587,12 @@ body.sidebar-hidden .menu-toggle {
     font-weight: 600;
     cursor: pointer;
 }
-
 .file-button:hover {
     background: var(--navy-2);
 }
-
 .file-button input {
     display: none;
 }
-
 .file-selected {
     width: min(390px, 100%);
     display: flex;
@@ -726,7 +605,6 @@ body.sidebar-hidden .menu-toggle {
     border: 1px solid var(--border);
     border-radius: 7px;
 }
-
 .file-selected > span {
     width: 32px;
     height: 32px;
@@ -739,7 +617,6 @@ body.sidebar-hidden .menu-toggle {
     font-size: 8px;
     font-weight: 700;
 }
-
 .file-selected strong {
     display: block;
     font-size: 10px;
@@ -748,42 +625,34 @@ body.sidebar-hidden .menu-toggle {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
 .file-selected small {
     display: block;
     color: var(--light-muted);
     font-size: 8px;
     margin-top: 2px;
 }
-
 .upload-actions {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-top: 14px;
 }
-
 .upload-message {
     min-height: 16px;
     color: var(--red);
     font-size: 9px;
     margin-top: 10px;
 }
-
-
 /* INSIGHTS */
-
 .insight-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14px;
     margin-bottom: 14px;
 }
-
 .insight-card {
     padding: 22px;
 }
-
 .insight-heading {
     display: flex;
     align-items: center;
@@ -792,7 +661,6 @@ body.sidebar-hidden .menu-toggle {
     border-bottom: 1px solid #e8edf0;
     margin-bottom: 14px;
 }
-
 .insight-icon {
     width: 29px;
     height: 29px;
@@ -804,15 +672,12 @@ body.sidebar-hidden .menu-toggle {
     color: var(--teal-dark);
     font-weight: 600;
 }
-
 .insight-heading h2 {
     font-size: 14px;
 }
-
 .insight-card ul {
     list-style: none;
 }
-
 .insight-card li {
     position: relative;
     padding-left: 15px;
@@ -821,7 +686,6 @@ body.sidebar-hidden .menu-toggle {
     line-height: 1.6;
     margin-bottom: 10px;
 }
-
 .insight-card li::before {
     content: "";
     position: absolute;
@@ -832,37 +696,29 @@ body.sidebar-hidden .menu-toggle {
     left: 0;
     top: 7px;
 }
-
 .recommendation-card {
     padding: 21px;
 }
-
 .recommendation-card h2 {
     font-size: 15px;
     margin: 5px 0 14px;
 }
-
 .recommendation {
     padding: 11px 0;
     border-top: 1px solid #e8edf0;
     color: var(--muted);
     font-size: 10px;
 }
-
-
 /* LEADERBOARD */
-
 .leaderboard-card {
     overflow: hidden;
 }
-
 .table-header,
 #leaderboardBody .admin-row {
     display: grid;
     grid-template-columns: 100px 1fr 100px;
     align-items: center;
 }
-
 .table-header {
     min-height: 44px;
     padding: 0 20px;
@@ -872,11 +728,9 @@ body.sidebar-hidden .menu-toggle {
     font-size: 9px;
     font-weight: 600;
 }
-
 .table-header span:last-child {
     text-align: right;
 }
-
 .leaderboard-empty {
     min-height: 310px;
     display: flex;
@@ -885,17 +739,14 @@ body.sidebar-hidden .menu-toggle {
     justify-content: center;
     text-align: center;
 }
-
 .leaderboard-empty h2 {
     font-size: 15px;
     margin-bottom: 5px;
 }
-
 .leaderboard-empty p {
     color: var(--muted);
     font-size: 10px;
 }
-
 .rank-badge {
     display: inline-flex;
     align-items: center;
@@ -908,25 +759,19 @@ body.sidebar-hidden .menu-toggle {
     font-size: 9px;
     font-weight: 700;
 }
-
 .rank-badge.gold {
     background: #f9e6b8;
     color: #8a6b16;
 }
-
 .rank-badge.silver {
     background: #e6eaed;
     color: #5b6b76;
 }
-
 .rank-badge.bronze {
     background: #f0d9c3;
     color: #8a5a2c;
 }
-
-
 /* PROFILE */
-
 .profile-card {
     min-height: 210px;
     padding: 28px;
@@ -935,7 +780,6 @@ body.sidebar-hidden .menu-toggle {
     gap: 20px;
     align-items: center;
 }
-
 .profile-avatar-large {
     width: 68px;
     height: 68px;
@@ -948,23 +792,19 @@ body.sidebar-hidden .menu-toggle {
     font-size: 22px;
     font-weight: 600;
 }
-
 .profile-main h2 {
     font-size: 17px;
     margin-bottom: 5px;
 }
-
 .profile-main p {
     color: var(--muted);
     font-size: 10px;
 }
-
 .profile-fields {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 18px;
 }
-
 .profile-fields span {
     display: block;
     color: #718493;
@@ -972,48 +812,38 @@ body.sidebar-hidden .menu-toggle {
     text-transform: uppercase;
     margin-bottom: 5px;
 }
-
 .profile-fields strong {
     font-size: 11px;
     font-weight: 500;
 }
-
-
 /* ADMIN */
-
 .admin-stat-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 13px;
     margin-bottom: 17px;
 }
-
 .admin-stat {
     min-height: 135px;
     padding: 20px;
 }
-
 .admin-stat span {
     color: #718493;
     font-size: 9px;
 }
-
 .admin-stat strong {
     display: block;
     font-size: 27px;
     font-weight: 600;
     margin: 10px 0 4px;
 }
-
 .admin-stat small {
     color: var(--light-muted);
     font-size: 8px;
 }
-
 .admin-panel {
     padding: 20px;
 }
-
 .panel-heading {
     display: flex;
     align-items: center;
@@ -1022,12 +852,10 @@ body.sidebar-hidden .menu-toggle {
     padding-bottom: 17px;
     border-bottom: 1px solid #e8edf0;
 }
-
 .panel-heading h2 {
     font-size: 15px;
     font-weight: 600;
 }
-
 .admin-row {
     display: grid;
     grid-template-columns: 1.3fr 1.3fr 1fr 80px;
@@ -1037,18 +865,15 @@ body.sidebar-hidden .menu-toggle {
     padding: 0 5px;
     font-size: 10px;
 }
-
 .admin-row:last-child {
     border-bottom: 0;
 }
-
 .admin-table-head {
     color: #758694;
     font-size: 9px;
     font-weight: 600;
     min-height: 40px;
 }
-
 .status-pill {
     width: fit-content;
     padding: 4px 7px;
@@ -1058,14 +883,10 @@ body.sidebar-hidden .menu-toggle {
     font-size: 8px;
     font-weight: 600;
 }
-
 .score-cell {
     font-weight: 600;
 }
-
-
 /* TOAST */
-
 .toast {
     position: fixed;
     right: 24px;
@@ -1082,154 +903,114 @@ body.sidebar-hidden .menu-toggle {
     transition: .2s ease;
     z-index: 100;
 }
-
 .toast.show {
     transform: translateY(0);
     opacity: 1;
 }
-
 .toast.success {
     background: var(--green);
 }
-
 .toast.error {
     background: var(--red);
 }
-
-
 /* RESPONSIVE */
-
 @media (max-width: 1100px) {
-
     .sidebar {
         width: 240px;
     }
-
     .main {
         margin-left: 240px;
     }
-
     .menu-toggle {
         left: 250px;
     }
-
     .result-top {
         grid-template-columns: 1fr;
     }
-
     .category-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
     .admin-stat-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
 }
-
-
 @media (max-width: 800px) {
-
     .sidebar {
         width: 72px;
         padding: 16px 7px;
     }
-
     .brand {
         justify-content: center;
         padding: 0;
     }
-
     .brand-text,
     .role-label,
     .nav-item span:last-child {
         display: none;
     }
-
     .nav-item {
         justify-content: center;
         padding: 0;
     }
-
     .role-switch {
         flex-direction: column;
     }
-
     .main {
         margin-left: 72px;
         padding: 0 18px 35px;
     }
-
     .menu-toggle {
         left: 82px;
     }
-
     .details-grid {
         column-gap: 20px;
     }
-
 }
-
-
 @media (max-width: 600px) {
-
     .sidebar {
         width: 240px;
     }
-
     .sidebar .brand-text,
     .sidebar .role-label,
     .sidebar .nav-item span:last-child {
         display: block;
     }
-
     .sidebar .nav-item {
         justify-content: flex-start;
         padding: 0 13px;
     }
-
     .main {
         margin-left: 0;
         padding: 0 15px 35px;
     }
-
     .menu-toggle {
         left: 250px;
     }
-
     .topbar {
         height: auto;
         padding: 15px 0;
     }
-
     .category-grid,
     .insight-grid,
     .admin-stat-grid {
         grid-template-columns: 1fr;
     }
-
     .details-grid {
         grid-template-columns: 1fr;
     }
-
     .profile-card {
         grid-template-columns: 1fr;
     }
-
     .profile-fields {
         grid-template-columns: 1fr;
     }
-
     .admin-row {
         grid-template-columns: 1fr 1fr 80px;
     }
-
     .admin-row span:nth-child(2) {
         display: none;
     }
-
     .user-pill > div:last-child {
         display: none;
     }
-
 }
