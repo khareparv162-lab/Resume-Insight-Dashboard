@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume Insight</title>
+    <title>ResumeInsight — AI ATS Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs" type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 <div class="app">
@@ -15,7 +19,7 @@
             <div class="brand-icon">R</div>
             <div class="brand-text">
                 <h2>Resume Insight</h2>
-                <span>Scoreboard</span>
+                <span>Scoreboard & AI ATS</span>
             </div>
         </div>
         <div class="role-label">VIEW</div>
@@ -30,7 +34,7 @@
             </button>
             <button class="nav-item" data-page="insights">
                 <span class="nav-icon">✦</span>
-                <span>Insights</span>
+                <span>Insights & AI</span>
             </button>
             <button class="nav-item" data-page="leaderboard">
                 <span class="nav-icon">♛</span>
@@ -96,100 +100,166 @@
                         Upload your resume to begin your analysis.
                     </p>
                 </div>
-                <button id="downloadReportBtn" class="outline-btn hidden">
-                    Download Report
+                <button id="downloadReportBtn" class="dark-btn download-btn hidden">
+                    📥 Download PDF Report
                 </button>
             </div>
             <div id="dashboardEmpty" class="dashboard-empty">
                 <div class="empty-upload-icon">↑</div>
                 <h2>No resume analyzed yet</h2>
                 <p>
-                    Upload your resume to get your score, category analysis
-                    and personalized improvement insights.
+                    Upload your resume to get your score, category breakdown,
+                    JD keyword match and personalized AI improvement insights.
                 </p>
                 <button class="dark-btn go-upload">
                     Upload Resume
                 </button>
             </div>
             <div id="dashboardResults" class="hidden">
+                <!-- HERO SECTION -->
                 <div class="result-top">
                     <div class="score-card">
-                        <span class="card-label">
-                            OVERALL RESUME SCORE
-                        </span>
-                        <div class="score-number">
+                        <span class="card-label">OVERALL RESUME SCORE</span>
+                        <div class="score-number-wrap">
                             <strong id="overallScore">0</strong>
                             <span>/100</span>
                         </div>
-                        <div class="score-status" id="scoreStatus">
-                            Analyzed
+                        <div class="score-status" id="scoreStatus">Analyzed</div>
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" id="overallScoreBar" style="width: 0%;"></div>
                         </div>
-                        <p id="scoreMessage">
-                            Your resume has been analyzed.
-                        </p>
+                        <p id="scoreMessage">Your resume has been analyzed.</p>
                     </div>
+
+                    <!-- Target Job Description Match Card -->
+                    <div class="score-card jd-score-card" id="jdScoreCard">
+                        <span class="card-label">TARGET JOB MATCH</span>
+                        <div class="score-number-wrap">
+                            <strong id="jdScoreNumber">—</strong>
+                            <span id="jdScoreSuffix">/100%</span>
+                        </div>
+                        <div class="score-status" id="jdScoreStatus">No JD Specified</div>
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill jd-fill" id="jdScoreBar" style="width: 0%;"></div>
+                        </div>
+                        <p id="jdScoreMessage">Paste a target Job Description below to evaluate match.</p>
+                    </div>
+
                     <div class="student-details-card">
                         <div class="card-title-row">
-                            <h2>Resume Information</h2>
-                            <span class="verified-badge">Analyzed</span>
+                            <h2>Candidate Information</h2>
+                            <span class="verified-badge">ATS Evaluated</span>
                         </div>
                         <div class="details-grid">
                             <div class="detail">
-                                <span>Name</span>
-                                <strong id="resultName">
-                                    Not available
-                                </strong>
+                                <span>Candidate Name</span>
+                                <strong id="resultName">Not available</strong>
                             </div>
                             <div class="detail">
-                                <span>Education</span>
-                                <strong id="resultEducation">
-                                    Not available
-                                </strong>
+                                <span>University / Education</span>
+                                <strong id="resultEducation">Not available</strong>
                             </div>
                             <div class="detail">
-                                <span>Skills</span>
-                                <strong id="resultSkills">
-                                    Not available
-                                </strong>
+                                <span>Contact & Links</span>
+                                <div id="resultContacts" class="contact-links-row">Not available</div>
                             </div>
                             <div class="detail">
-                                <span>Projects</span>
-                                <strong id="resultProjects">
-                                    Not available
-                                </strong>
-                            </div>
-                            <div class="detail">
-                                <span>Certifications</span>
-                                <strong id="resultCertifications">
-                                    Not available
-                                </strong>
-                            </div>
-                            <div class="detail">
-                                <span>Achievements</span>
-                                <strong id="resultAchievements">
-                                    Not available
-                                </strong>
+                                <span>Target Role</span>
+                                <strong id="resultTargetRole">General Tech</strong>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- LIVE INTERACTIVE JOB DESCRIPTION MATCHER IN DASHBOARD -->
+                <div class="live-jd-matcher-card">
+                    <div class="live-jd-header">
+                        <div>
+                            <span class="eyebrow-tag">🎯 ATS TARGET JOB MATCHER</span>
+                            <h2>Test Resume Against Any Job Posting</h2>
+                            <p>Paste a job description or select a preset to instantly check your match %, matched skills, and missing keywords.</p>
+                        </div>
+                    </div>
+
+                    <div class="preset-buttons-row">
+                        <span class="preset-label">Quick Presets:</span>
+                        <button type="button" class="preset-btn" data-role="Full Stack Developer" data-jd="Seeking Full Stack Engineer with strong hands-on experience in React, Node.js, TypeScript, PostgreSQL, Docker, AWS, GraphQL, REST APIs, Git, CI/CD, and Tailwind CSS.">Full Stack</button>
+                        <button type="button" class="preset-btn" data-role="Machine Learning / AI Engineer" data-jd="Looking for Machine Learning Engineer skilled in Python, PyTorch, TensorFlow, Computer Vision, OpenCV, MediaPipe, NLP, Deep Learning, Pandas, NumPy, and Scikit-Learn.">AI / ML Engineer</button>
+                        <button type="button" class="preset-btn" data-role="Frontend Developer" data-jd="Frontend Developer with expertise in React, Next.js, JavaScript, TypeScript, HTML5, CSS3, Tailwind, Redux, responsive design, and Jest unit testing.">Frontend</button>
+                        <button type="button" class="preset-btn" data-role="Backend Developer" data-jd="Backend Engineer skilled in Node.js, Express, Python, FastAPI, MongoDB, PostgreSQL, Redis, Docker, Microservices, and RESTful APIs.">Backend</button>
+                        <button type="button" class="preset-btn" data-role="DevOps & Cloud Engineer" data-jd="DevOps Engineer with experience in AWS, Docker, Kubernetes, Terraform, CI/CD pipelines, GitHub Actions, Linux, Nginx, and monitoring.">DevOps / Cloud</button>
+                    </div>
+
+                    <div class="live-jd-inputs-grid">
+                        <div class="form-group">
+                            <label for="dashTargetRole">Target Role / Title:</label>
+                            <input type="text" id="dashTargetRole" class="custom-input" placeholder="e.g. Full Stack Developer, Machine Learning Engineer">
+                        </div>
+                        <div class="form-group">
+                            <label for="dashTargetJD">Job Requirements / Skills:</label>
+                            <textarea id="dashTargetJD" class="custom-textarea" rows="4" placeholder="Paste job description or requirements here (e.g. React, Node.js, Docker, AWS, Python, PostgreSQL)..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="live-jd-actions">
+                        <button type="button" id="liveMatchBtn" class="dark-btn live-match-btn">
+                            ⚡ Evaluate Job Match Now
+                        </button>
+                    </div>
+
+                    <!-- Live Keyword Gap Results -->
+                    <div id="liveGapResults" class="live-gap-results hidden">
+                        <div class="gap-grid">
+                            <div class="gap-col">
+                                <span class="gap-label success">✔ Matched Skills (<span id="liveMatchedCount">0</span>)</span>
+                                <div class="chip-container" id="dashMatchedChips"></div>
+                            </div>
+                            <div class="gap-col">
+                                <span class="gap-label danger">✖ Missing Critical Skills (<span id="liveMissingCount">0</span>)</span>
+                                <div class="chip-container" id="dashMissingChips"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXTRACTED PROJECTS SECTION -->
+                <div class="projects-container-card" id="projectsSection">
+                    <div class="card-title-row">
+                        <h2>Extracted Projects & Portfolio</h2>
+                        <span class="skills-count-pill" id="projectsCountPill">0 Projects</span>
+                    </div>
+                    <div class="projects-grid" id="projectsList"></div>
+                </div>
+
+                <!-- Categorized Skills Grid -->
+                <div class="skills-taxonomy-card">
+                    <div class="card-title-row">
+                        <h2>Detected Technical Skills Taxonomy (150+ Dictionary)</h2>
+                        <span class="skills-count-pill" id="skillsCountPill">0 Skills</span>
+                    </div>
+                    <div class="skills-tax-grid" id="skillsTaxGrid"></div>
+                </div>
+
+                <!-- Category Scores -->
                 <div class="section-title">
                     <span>ANALYSIS</span>
-                    <h2>Category-wise scores</h2>
+                    <h2>Category-wise performance scores</h2>
                 </div>
                 <div class="category-grid">
                     <div class="category-card">
                         <div class="category-top">
-                            <span>Skills</span>
+                            <span>Technical Skills</span>
                             <b id="skillsScore">0/20</b>
                         </div>
+                        <div class="cat-bar-track"><div class="cat-bar-fill fill-teal" id="skillsBar" style="width: 0%;"></div></div>
                         <p id="skillsFeedback">Not analyzed</p>
                     </div>
                     <div class="category-card">
                         <div class="category-top">
-                            <span>Projects</span>
+                            <span>Projects Depth</span>
                             <b id="projectsScore">0/20</b>
                         </div>
+                        <div class="cat-bar-track"><div class="cat-bar-fill fill-blue" id="projectsBar" style="width: 0%;"></div></div>
                         <p id="projectsFeedback">Not analyzed</p>
                     </div>
                     <div class="category-card">
@@ -197,13 +267,15 @@
                             <span>Certifications</span>
                             <b id="certificationsScore">0/15</b>
                         </div>
+                        <div class="cat-bar-track"><div class="cat-bar-fill fill-green" id="certificationsBar" style="width: 0%;"></div></div>
                         <p id="certificationsFeedback">Not analyzed</p>
                     </div>
                     <div class="category-card">
                         <div class="category-top">
-                            <span>Achievements</span>
+                            <span>Achievements & Awards</span>
                             <b id="achievementsScore">0/15</b>
                         </div>
+                        <div class="cat-bar-track"><div class="cat-bar-fill fill-amber" id="achievementsBar" style="width: 0%;"></div></div>
                         <p id="achievementsFeedback">Not analyzed</p>
                     </div>
                     <div class="category-card">
@@ -211,37 +283,55 @@
                             <span>Resume Quality</span>
                             <b id="qualityScore">0/15</b>
                         </div>
+                        <div class="cat-bar-track"><div class="cat-bar-fill fill-purple" id="qualityBar" style="width: 0%;"></div></div>
                         <p id="qualityFeedback">Not analyzed</p>
                     </div>
                     <div class="category-card">
                         <div class="category-top">
-                            <span>ATS Readiness</span>
+                            <span>ATS Keyword Readiness</span>
                             <b id="atsScore">0/15</b>
                         </div>
+                        <div class="cat-bar-track"><div class="cat-bar-fill fill-rose" id="atsBar" style="width: 0%;"></div></div>
                         <p id="atsFeedback">Not analyzed</p>
+                    </div>
+                </div>
+
+                <!-- Certifications & Achievements detailed boxes -->
+                <div class="details-two-col">
+                    <div class="card-box">
+                        <h3>📜 Certifications Detected</h3>
+                        <div id="certificationsList" class="items-chip-list">
+                            <p style="color:var(--muted);font-size:13px;">No certifications detected.</p>
+                        </div>
+                    </div>
+                    <div class="card-box">
+                        <h3>🏅 Achievements & Awards Detected</h3>
+                        <div id="achievementsList" class="items-chip-list">
+                            <p style="color:var(--muted);font-size:13px;">No achievements detected.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-<!-- RESUME -->
+<!-- RESUME UPLOAD -->
         <section id="resume" class="page">
             <div class="page-heading">
                 <div>
                     <span class="eyebrow">Student Portal</span>
-                    <h1>Resume Upload</h1>
+                    <h1>Resume Upload & Target Job Matcher</h1>
                     <p>
-                        Upload a PDF resume and analyze it directly in your browser.
+                        Upload your PDF resume and optionally paste a Target Job Description to evaluate ATS keyword alignment.
                     </p>
                 </div>
             </div>
-            <div class="upload-layout">
+            <div class="upload-layout-dual">
+                <!-- PDF Upload Box -->
                 <div class="upload-card">
                     <div class="upload-icon-large">↑</div>
-                    <h2>Upload your resume</h2>
+                    <h2>1. Select Your Resume</h2>
                     <p>
-                        PDF format recommended. Your file stays in the browser
-                        for this frontend demo.
+                        Upload a standard PDF resume.
                     </p>
                     <label class="file-button">
                         Choose PDF
@@ -275,17 +365,43 @@
                     </div>
                     <p id="uploadMessage" class="upload-message"></p>
                 </div>
+
+                <!-- Job Description Matcher Box -->
+                <div class="jd-target-card">
+                    <div class="jd-header">
+                        <span class="eyebrow">TARGET JOB DESCRIPTION MATCHER</span>
+                        <h2>2. Target Role & Job Posting (Optional)</h2>
+                        <p>Paste the job requirements below or click a preset to calculate ATS Keyword Match % and discover missing skills.</p>
+                    </div>
+
+                    <div class="preset-buttons-row">
+                        <span class="preset-label">Quick Presets:</span>
+                        <button type="button" class="preset-btn upload-preset" data-role="Full Stack Developer" data-jd="Seeking Full Stack Engineer with strong hands-on experience in React, Node.js, TypeScript, PostgreSQL, Docker, AWS, GraphQL, REST APIs, Git, CI/CD, and Tailwind CSS.">Full Stack</button>
+                        <button type="button" class="preset-btn upload-preset" data-role="Machine Learning / AI Engineer" data-jd="Looking for Machine Learning Engineer skilled in Python, PyTorch, TensorFlow, Computer Vision, OpenCV, MediaPipe, NLP, Deep Learning, Pandas, NumPy, and Scikit-Learn.">AI / ML Engineer</button>
+                        <button type="button" class="preset-btn upload-preset" data-role="Frontend Developer" data-jd="Frontend Developer with expertise in React, Next.js, JavaScript, TypeScript, HTML5, CSS3, Tailwind, Redux, responsive design, and Jest unit testing.">Frontend</button>
+                        <button type="button" class="preset-btn upload-preset" data-role="Backend Developer" data-jd="Backend Engineer skilled in Node.js, Express, Python, FastAPI, MongoDB, PostgreSQL, Redis, Docker, Microservices, and RESTful APIs.">Backend</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="targetRoleInput">Target Role / Title:</label>
+                        <input type="text" id="targetRoleInput" class="custom-input" placeholder="e.g. Full Stack Developer, ML Engineer, DevOps">
+                    </div>
+                    <div class="form-group">
+                        <label for="targetJDInput">Target Job Description / Requirements:</label>
+                        <textarea id="targetJDInput" class="custom-textarea" rows="6" placeholder="Paste the target job description or required skills list here (e.g. React, Node.js, Docker, Kubernetes, AWS, PostgreSQL, REST APIs)..."></textarea>
+                    </div>
+                </div>
             </div>
         </section>
 
-<!-- INSIGHTS -->
+<!-- INSIGHTS & AI -->
         <section id="insights" class="page">
             <div class="page-heading">
                 <div>
                     <span class="eyebrow">Student Portal</span>
-                    <h1>Insights</h1>
+                    <h1>Insights & AI Recommendations</h1>
                     <p>
-                        Review what is strong and what needs improvement.
+                        Deep ATS audit, keyword gap analysis, and AI-powered bullet point rewrites.
                     </p>
                 </div>
             </div>
@@ -300,6 +416,39 @@
                 </button>
             </div>
             <div id="insightsResults" class="hidden">
+                <!-- AI Deep Critique Banner -->
+                <div class="ai-critique-card" id="aiCritiqueCard">
+                    <div class="ai-card-header">
+                        <div class="ai-badge">🤖 AI ATS Executive Critique</div>
+                        <span class="ai-source" id="aiSourceTag">Powered by Gemini AI</span>
+                    </div>
+                    <p class="ai-summary" id="aiSummaryText">
+                        AI critique will appear here.
+                    </p>
+                    <div class="ai-rewrites-section">
+                        <h3>💡 Suggested XYZ-Formula Bullet Point Rewrites</h3>
+                        <div id="aiRewritesList" class="ai-rewrites-list"></div>
+                    </div>
+                </div>
+
+                <!-- Job Keyword Gap Analysis -->
+                <div class="keyword-gap-card" id="keywordGapCard">
+                    <div class="gap-header">
+                        <h2>🎯 Target Job Keyword Gap Analysis</h2>
+                        <span class="badge" id="gapScoreBadge">0% Matched</span>
+                    </div>
+                    <div class="gap-grid">
+                        <div class="gap-col">
+                            <span class="gap-label success">✔ Matched Keywords in Resume</span>
+                            <div class="chip-container" id="matchedChips"></div>
+                        </div>
+                        <div class="gap-col">
+                            <span class="gap-label danger">✖ Missing Critical Keywords from Job Posting</span>
+                            <div class="chip-container" id="missingChips"></div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="insight-grid">
                     <article class="insight-card">
                         <div class="insight-heading">
@@ -311,16 +460,15 @@
                     <article class="insight-card">
                         <div class="insight-heading">
                             <span class="insight-icon">!</span>
-                            <h2>Areas to improve</h2>
+                            <h2>Areas to Improve</h2>
                         </div>
                         <ul id="improvementList"></ul>
                     </article>
                 </div>
+
                 <div class="recommendation-card">
-                    <span class="eyebrow">
-                        RECOMMENDATIONS
-                    </span>
-                    <h2>Next steps</h2>
+                    <span class="eyebrow">RECOMMENDATIONS</span>
+                    <h2>Actionable Next Steps</h2>
                     <div id="recommendationList"></div>
                 </div>
             </div>
@@ -333,8 +481,7 @@
                     <span class="eyebrow">Student Portal</span>
                     <h1>Leaderboard</h1>
                     <p>
-                        Compare resume scores after students have analyzed
-                        their resumes.
+                        Compare resume scores across students and cohort submissions.
                     </p>
                 </div>
             </div>
@@ -342,6 +489,7 @@
                 <div class="table-header">
                     <span>RANK</span>
                     <span>STUDENT</span>
+                    <span>EDUCATION</span>
                     <span>SCORE</span>
                 </div>
                 <div id="leaderboardEmpty" class="leaderboard-empty">
@@ -363,9 +511,12 @@
                     <span class="eyebrow">Student Portal</span>
                     <h1>Profile</h1>
                     <p>
-                        Your profile information is shown after resume analysis.
+                        Your candidate profile and analyzed technical skill inventory.
                     </p>
                 </div>
+                <button id="editProfileBtn" class="dark-btn">
+                    ✏️ Edit Profile
+                </button>
             </div>
             <div id="profileEmpty" class="simple-empty">
                 <div>○</div>
@@ -386,7 +537,7 @@
                 </div>
                 <div class="profile-fields">
                     <div>
-                        <span>Skills</span>
+                        <span>Technical Skills</span>
                         <strong id="profileSkills">
                             Not available
                         </strong>
@@ -416,22 +567,22 @@
                 <div class="admin-stat">
                     <span>Total Students</span>
                     <strong id="adminStudents">0</strong>
-                    <small>Students in this session</small>
+                    <small>Students in database</small>
                 </div>
                 <div class="admin-stat">
                     <span>Resumes Uploaded</span>
                     <strong id="adminUploaded">0</strong>
-                    <small>Uploaded in this session</small>
+                    <small>Total records stored</small>
                 </div>
                 <div class="admin-stat">
                     <span>Resumes Analyzed</span>
                     <strong id="adminAnalyzed">0</strong>
-                    <small>Completed analysis</small>
+                    <small>Completed analyses</small>
                 </div>
                 <div class="admin-stat">
                     <span>Average Score</span>
                     <strong id="adminAverage">—</strong>
-                    <small>Based on analyzed resumes</small>
+                    <small>Cohort average</small>
                 </div>
             </div>
             <div class="admin-panel">
@@ -470,7 +621,7 @@
                     <span class="eyebrow">Administration</span>
                     <h1>Students</h1>
                     <p>
-                        Student resume records available in this frontend session.
+                        Student resume records saved in the database.
                     </p>
                 </div>
             </div>
@@ -481,18 +632,131 @@
                     Student records will appear after resume analysis.
                 </p>
             </div>
-            <div id="studentsTable" class="admin-panel hidden">
-                <div class="admin-row admin-table-head">
-                    <span>Student</span>
-                    <span>Education</span>
-                    <span>Resume</span>
-                    <span>Score</span>
-                </div>
-                <div id="studentRows"></div>
+            <div id="studentsTableWrapper" class="table-responsive hidden">
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th>CANDIDATE</th>
+                            <th>EDUCATION</th>
+                            <th>RESUME FILE</th>
+                            <th style="text-align: right;">SCORE</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentRows"></tbody>
+                </table>
             </div>
         </section>
     </main>
 </div>
+
+<!-- LOGIN / SIGNUP MODAL -->
+<div id="authModal" class="auth-modal-overlay">
+    <div class="auth-modal">
+        <div class="auth-header">
+            <div class="auth-logo">⚡ ResumeInsight</div>
+            <p class="auth-tagline">AI-Powered ATS Resume Intelligence Platform</p>
+        </div>
+
+        <!-- Login Tab -->
+        <div id="loginTab" class="auth-tab active">
+            <h2>Sign In</h2>
+            <p class="auth-sub">Welcome back! Sign in to access your dashboard.</p>
+            <div class="auth-form">
+                <div class="auth-field">
+                    <label>Full Name</label>
+                    <input type="text" id="loginName" class="auth-input" placeholder="e.g. Parv Khare" autocomplete="name">
+                </div>
+                <div class="auth-field">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" class="auth-input" placeholder="you@college.edu" autocomplete="email">
+                </div>
+                <button id="loginBtn" class="auth-submit-btn">
+                    Sign In & Launch Dashboard →
+                </button>
+                <div class="auth-divider"><span>or</span></div>
+                <button id="guestBtn" class="auth-guest-btn">
+                    Continue as Guest
+                </button>
+            </div>
+            <p class="auth-switch">New here? <button class="auth-link-btn" id="switchToSignup">Create an account</button></p>
+        </div>
+
+        <!-- Signup Tab -->
+        <div id="signupTab" class="auth-tab">
+            <h2>Create Account</h2>
+            <p class="auth-sub">Join to unlock AI resume evaluation, ATS match scoring, and PDF audit reports.</p>
+            <div class="auth-form">
+                <div class="auth-field">
+                    <label>Full Name</label>
+                    <input type="text" id="signupName" class="auth-input" placeholder="Your full name" autocomplete="name">
+                </div>
+                <div class="auth-field">
+                    <label>Email Address</label>
+                    <input type="email" id="signupEmail" class="auth-input" placeholder="you@college.edu" autocomplete="email">
+                </div>
+                <div class="auth-field">
+                    <label>Institution / University</label>
+                    <input type="text" id="signupCollege" class="auth-input" placeholder="e.g. SRM IST, IIT Delhi, NIT Trichy">
+                </div>
+                <div class="auth-field">
+                    <label>Target Role (optional)</label>
+                    <input type="text" id="signupRole" class="auth-input" placeholder="e.g. Full Stack Developer, ML Engineer">
+                </div>
+                <button id="signupBtn" class="auth-submit-btn">
+                    Create Account & Get Started →
+                </button>
+            </div>
+            <p class="auth-switch">Already have an account? <button class="auth-link-btn" id="switchToLogin">Sign in</button></p>
+    </div>
+</div>
+
+<!-- EDIT PROFILE MODAL -->
+<div id="editProfileModal" class="auth-modal-overlay hidden">
+    <div class="auth-modal">
+        <div class="auth-header">
+            <h2>✏️ Edit Candidate Profile</h2>
+            <p class="auth-sub">Update your personal information and contact details.</p>
+        </div>
+        <div class="auth-form">
+            <div class="auth-field">
+                <label for="editName">Full Name</label>
+                <input type="text" id="editName" class="auth-input" placeholder="e.g. Parv Khare">
+            </div>
+            <div class="auth-field">
+                <label for="editEducation">University / Degree</label>
+                <input type="text" id="editEducation" class="auth-input" placeholder="e.g. B.Tech in Computer Science, SRM IST">
+            </div>
+            <div class="auth-field">
+                <label for="editRole">Target Role Title</label>
+                <input type="text" id="editRole" class="auth-input" placeholder="e.g. Full Stack Developer">
+            </div>
+            <div class="auth-field">
+                <label for="editEmail">Email Address</label>
+                <input type="email" id="editEmail" class="auth-input" placeholder="khareparv162@gmail.com">
+            </div>
+            <div class="auth-field">
+                <label for="editPhone">Phone Number</label>
+                <input type="text" id="editPhone" class="auth-input" placeholder="+91 9876543210">
+            </div>
+            <div class="auth-field">
+                <label for="editGithub">GitHub Handle / URL</label>
+                <input type="text" id="editGithub" class="auth-input" placeholder="github.com/khareparv162-lab">
+            </div>
+            <div class="auth-field">
+                <label for="editLinkedin">LinkedIn Handle / URL</label>
+                <input type="text" id="editLinkedin" class="auth-input" placeholder="linkedin.com/in/parv-khare">
+            </div>
+            <div style="display:flex;gap:10px;margin-top:10px;">
+                <button id="saveProfileBtn" class="auth-submit-btn" style="flex:2;">Save Changes</button>
+                <button id="cancelProfileBtn" class="auth-guest-btn" style="flex:1;">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PRINTABLE AUDIT REPORT CONTAINER (FOR PDF EXPORT) -->
+<div id="printableReport" class="hidden printable-report"></div>
+
 <div id="toast" class="toast"></div>
 <script type="module" src="script.js"></script>
 </body>
