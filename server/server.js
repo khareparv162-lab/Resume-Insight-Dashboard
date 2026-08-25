@@ -14,16 +14,12 @@ app.use(cors());
 app.use(express.json({ limit: '25mb' }));
 app.use(express.urlencoded({ extended: true, limit: '25mb' }));
 
-// Serve frontend
+// Serve frontend files from project root
 app.use(express.static(rootDir));
 
 // API routes
-try {
-    const resumesRouter = require('../routes/resumes');
-    app.use('/api/resumes', resumesRouter);
-} catch (error) {
-    console.error('Failed to load resumes router:', error);
-}
+const resumesRouter = require('./routes/resumes');
+app.use('/api/resumes', resumesRouter);
 
 // Homepage
 app.get('/', (req, res) => {
@@ -44,4 +40,5 @@ if (require.main === module) {
         console.log(`Server running on port ${PORT}`);
     });
 }
+
 module.exports = app;
