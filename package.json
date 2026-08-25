@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "resume-insight-dashboard",
   "version": "1.0.0",
   "description": "Resume Insight Dashboard - Comprehensive Resume Analyzer, Leaderboard & Admin Portal with Persistent Database",
@@ -16,6 +16,7 @@
     "resume",
     "analyzer",
     "dashboard",
+    "leaderboard",
     "sqlite",
     "express",
     "api"
