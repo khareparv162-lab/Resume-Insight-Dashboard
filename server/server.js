@@ -5,7 +5,6 @@ const path = require('path');
 const resumesRouter = require('./routes/resumes');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
@@ -47,12 +46,5 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`===========================================`);
-    console.log(` Resume Insight Dashboard Server Running!`);
-    console.log(` Local URL: http://localhost:${PORT}`);
-    console.log(` API Endpoint: http://localhost:${PORT}/api/resumes`);
-    console.log(`===========================================`);
-});
 
 module.exports = app;
