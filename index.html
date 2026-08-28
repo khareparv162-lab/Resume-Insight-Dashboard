@@ -114,32 +114,100 @@
     </button>
 
 
-    <!-- MAIN -->
-    <main class="main" id="main">
+<!-- MAIN -->
+<main class="main" id="main">
 
-        <header class="topbar">
+    <header class="topbar">
 
-            <div></div>
+        <div></div>
 
-            <div class="topbar-right">
-                
+        <div class="topbar-right">
 
-                <div class="user-pill">
+            <div class="profile-menu" id="profileMenu">
 
-                    <div class="avatar" id="headerAvatar">S</div>
+                <button
+                    class="user-pill"
+                    id="profileTrigger"
+                    type="button">
+
+                    <div
+                        class="avatar"
+                        id="headerAvatar">
+                        G
+                    </div>
 
                     <div>
-                        <strong id="headerName">Student</strong>
-                        <span id="headerRole">Resume Analyzer</span>
+
+                        <strong id="headerName">
+                            Guest User
+                        </strong>
+
+                        <span id="headerRole">
+                            ATS Evaluated
+                        </span>
+
+                    </div>
+
+                    <span
+                        class="profile-chevron"
+                        id="profileChevron">
+                        ⌄
+                    </span>
+
+                </button>
+
+
+                <div
+                    class="profile-dropdown hidden"
+                    id="profileDropdown">
+
+                    <button
+                        type="button"
+                        class="profile-dropdown-item"
+                        id="viewProfileBtn">
+
+                        <span>👤</span>
+
+                        <span>
+                            View Profile
+                        </span>
+
+                    </button>
+
+
+                    <div class="profile-dropdown-divider"></div>
+
+
+                    <div class="profile-mode-label">
+                        MODE
+                    </div>
+
+
+                    <div class="profile-mode-switch">
+
+                        <button
+                            id="studentMode"
+                            class="role-switch-btn active"
+                            type="button">
+                            Student
+                        </button>
+
+                        <button
+                            id="adminMode"
+                            class="role-switch-btn"
+                            type="button">
+                            Admin
+                        </button>
+
                     </div>
 
                 </div>
 
             </div>
 
-        </header>
+        </div>
 
-
+    </header>
         <!-- STUDENT DASHBOARD -->
         <section id="student-dashboard" class="page active">
 
