@@ -1928,3 +1928,72 @@ body.sidebar-hidden .menu-toggle {
     border-color: #fca5a5;
     color: #dc2626;
 }
+/* DARK MODE */
+
+.theme-toggle {
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-1px);
+    border-color: var(--text);
+}
+
+/* Dark theme */
+
+body.dark-mode {
+    --bg: #111315;
+    --card: #191c1f;
+    --text: #f1f3f5;
+    --muted: #9ba1a8;
+    --border: #2b3035;
+    --input: #15181b;
+}
+
+body.dark-mode {
+    background: var(--bg);
+    color: var(--text);
+}
+
+body.dark-mode .sidebar,
+body.dark-mode .topbar,
+body.dark-mode .card,
+body.dark-mode .profile-card,
+body.dark-mode .simple-empty,
+body.dark-mode .modal-content {
+    background: var(--card);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+    background: var(--input);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+body.dark-mode .theme-toggle {
+    background: #22262a;
+    border-color: #383e44;
+}
+
+body.dark-mode .theme-toggle:hover {
+    background: #292e33;
+}
+
+body.dark-mode a {
+    color: inherit;
+}
