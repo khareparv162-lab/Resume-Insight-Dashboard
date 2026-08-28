@@ -1626,37 +1626,31 @@ async function initialize() {
     } catch (e) {
         // Backend offline or no latest record
     }
-    // DARK MODE
+// DARK MODE
 
-const themeToggle = document.getElementById("themeToggle");
+document.addEventListener("DOMContentLoaded", () => {
+    const themeToggle = document.getElementById("themeToggle");
 
-function updateThemeButton() {
-    if (!themeToggle) return;
+    if (!themeToggle) {
+        console.log("Theme button not found");
+        return;
+    }
 
-    themeToggle.textContent = document.body.classList.contains("dark-mode")
-        ? "☀️"
-        : "🌙";
-}
+    // Load saved theme
+    const savedTheme = localStorage.getItem("darkMode");
 
-if (themeToggle) {
+    if (savedTheme === "true") {
+        document.body.classList.add("dark-mode");
+        themeToggle.textContent = "☀️";
+    }
+
     themeToggle.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
 
         const isDark = document.body.classList.contains("dark-mode");
 
-        localStorage.setItem("darkMode", isDark ? "true" : "false");
+        localStorage.setItem("darkMode", isDark);
 
-        updateThemeButton();
+        themeToggle.textContent = isDark ? "☀️" : "🌙";
     });
-}
-
-if (localStorage.getItem("darkMode") === "true") {
-    document.body.classList.add("dark-mode");
-}
-
-updateThemeButton();
-
-    await updateAdminDashboard();
-}
-
-initialize();
+});
