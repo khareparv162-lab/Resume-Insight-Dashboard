@@ -1950,49 +1950,6 @@ body.sidebar-hidden .menu-toggle {
     border-color: var(--text);
 }
 
-/* DARK MODE */
-
-body {
-    transition: background-color 0.25s ease, color 0.25s ease;
-}
-
-.theme-toggle {
-    width: 42px;
-    height: 42px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background: var(--card);
-    color: var(--text);
-    cursor: pointer;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-body.dark-mode {
-    background: #111315;
-    color: #f1f3f5;
-}
-
-body.dark-mode .topbar,
-body.dark-mode .sidebar,
-body.dark-mode .card,
-body.dark-mode .profile-card,
-body.dark-mode .simple-empty,
-body.dark-mode .modal-content {
-    background: #191c1f;
-    color: #f1f3f5;
-    border-color: #2b3035;
-}
-
-body.dark-mode input,
-body.dark-mode textarea,
-body.dark-mode select {
-    background: #15181b;
-    color: #f1f3f5;
-    border-color: #2b3035;
-}
 
 body.dark-mode .theme-toggle {
     background: #22262a;
