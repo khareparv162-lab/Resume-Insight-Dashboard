@@ -1626,6 +1626,35 @@ async function initialize() {
     } catch (e) {
         // Backend offline or no latest record
     }
+    // DARK MODE
+
+const themeToggle = document.getElementById("themeToggle");
+
+function updateThemeButton() {
+    if (!themeToggle) return;
+
+    themeToggle.textContent = document.body.classList.contains("dark-mode")
+        ? "☀️"
+        : "🌙";
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+
+        const isDark = document.body.classList.contains("dark-mode");
+
+        localStorage.setItem("darkMode", isDark ? "true" : "false");
+
+        updateThemeButton();
+    });
+}
+
+if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark-mode");
+}
+
+updateThemeButton();
 
     await updateAdminDashboard();
 }
