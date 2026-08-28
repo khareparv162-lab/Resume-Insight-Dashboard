@@ -1840,7 +1840,36 @@ body.sidebar-hidden .menu-toggle {
 /* ==========================================================================
    HEADER ACCOUNT BUTTON
    ========================================================================== */
+.user-profile-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
 
+.user-profile-badge:hover {
+    background: #e2e8f0;
+}
+.user-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.user-meta strong {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.user-meta span {
+    font-size: 11px;
+    color: #64748b;
+}
 .topbar-action-btn {
     background: #0798b2;
     color: white;
