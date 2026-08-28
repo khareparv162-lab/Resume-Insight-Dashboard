@@ -1616,8 +1616,10 @@ async function initialize() {
 
     try {
         const response = await fetch(`${API_BASE}/latest`);
+
         if (response.ok) {
             const res = await response.json();
+
             if (res.success && res.data) {
                 currentResume = res.data;
                 updateUI(currentResume);
@@ -1626,3 +1628,8 @@ async function initialize() {
     } catch (e) {
         // Backend offline or no latest record
     }
+
+    await updateAdminDashboard();
+}
+
+initialize();
