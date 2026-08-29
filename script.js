@@ -5,6 +5,61 @@ let isAdmin = false;
 // API Base
 const API_BASE = "/api/resumes";
 
+// THEME (DARK / LIGHT MODE)
+(function initTheme() {
+    const THEME_KEY = "resumeInsightTheme";
+    const root = document.documentElement;
+    const toggleBtn = document.getElementById("themeToggle");
+    const toggleIcon = document.getElementById("themeToggleIcon");
+
+    function applyTheme(theme) {
+        if (theme === "dark") {
+            root.setAttribute("data-theme", "dark");
+            if (toggleIcon) toggleIcon.textContent = "☀️";
+        } else {
+            root.removeAttribute("data-theme");
+            if (toggleIcon) toggleIcon.textContent = "🌙";
+        }
+    }
+
+    function getStoredTheme() {
+        try {
+            return localStorage.getItem(THEME_KEY);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function storeTheme(theme) {
+        try {
+            localStorage.setItem(THEME_KEY, theme);
+        } catch (e) {
+            /* ignore storage errors (e.g. private browsing) */
+        }
+    }
+
+    const stored = getStoredTheme();
+    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initialTheme = stored || (prefersDark ? "dark" : "light");
+    applyTheme(initialTheme);
+
+    if (toggleBtn) {
+        toggleBtn.addEventListener("click", () => {
+            const isDark = root.getAttribute("data-theme") === "dark";
+            const nextTheme = isDark ? "light" : "dark";
+            applyTheme(nextTheme);
+            storeTheme(nextTheme);
+        });
+    }
+
+    // Follow system theme changes only if the user hasn't chosen a theme explicitly
+    if (!stored && window.matchMedia) {
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+            applyTheme(e.matches ? "dark" : "light");
+        });
+    }
+})();
+
 // 150+ CATEGORIZED SKILL TAXONOMY
 const SKILL_TAXONOMY = {
     "Languages": [
@@ -1249,7 +1304,7 @@ function renderList(element, items) {
 
 function renderAdminRows(records) {
     const empty = document.getElementById("adminRecentEmpty");
-    const table = document.getElementById("adminRecentTableWrapper");
+    const table = document.getElementById("adminRecentTable");
     const rows = document.getElementById("adminRows");
     if (!rows) return;
     rows.innerHTML = "";
@@ -1261,15 +1316,16 @@ function renderAdminRows(records) {
     if (empty) empty.classList.add("hidden");
     if (table) table.classList.remove("hidden");
     records.slice().reverse().forEach(record => {
-        const tr = document.createElement("tr");
+        const row = document.createElement("div");
+        row.className = "admin-row";
         const score = record.score !== undefined ? record.score : (record.scores ? record.scores.overall : 0);
-        tr.innerHTML = `
-            <td><strong>${escapeHTML(record.name || 'Anonymous')}</strong></td>
-            <td>${escapeHTML(record.fileName || 'resume.pdf')}</td>
-            <td><span class="status-pill">${escapeHTML(record.status || 'Analyzed')}</span></td>
-            <td style="text-align:right;font-weight:700;">${score}/100</td>
+        row.innerHTML = `
+            <span><strong>${escapeHTML(record.name || 'Anonymous')}</strong></span>
+            <span>${escapeHTML(record.fileName || 'resume.pdf')}</span>
+            <span><span class="status-pill">${escapeHTML(record.status || 'Analyzed')}</span></span>
+            <span style="text-align:right;font-weight:700;">${score}/100</span>
         `;
-        rows.appendChild(tr);
+        rows.appendChild(row);
     });
 }
 
@@ -1301,17 +1357,16 @@ function renderStudentRows(records) {
 
 function renderLeaderboard(records) {
     const empty = document.getElementById("leaderboardEmpty");
-    const wrapper = document.getElementById("leaderboardTableWrapper");
     const body = document.getElementById("leaderboardBody");
     if (!body) return;
     body.innerHTML = "";
     if (!records.length) {
         if (empty) empty.classList.remove("hidden");
-        if (wrapper) wrapper.classList.add("hidden");
+        body.classList.add("hidden");
         return;
     }
     if (empty) empty.classList.add("hidden");
-    if (wrapper) wrapper.classList.remove("hidden");
+    body.classList.remove("hidden");
 
     const sorted = [...records].sort((a, b) => {
         const scoreA = a.score !== undefined ? a.score : (a.scores ? a.scores.overall : 0);
@@ -1320,18 +1375,17 @@ function renderLeaderboard(records) {
     });
 
     sorted.forEach((record, index) => {
-        const tr = document.createElement("tr");
+        const row = document.createElement("div");
+        row.className = "admin-row";
         let rankEmoji = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `${index + 1}`;
         const score = record.score !== undefined ? record.score : (record.scores ? record.scores.overall : 0);
-        const jdScore = record.jdScore !== undefined && record.jdScore !== null ? `${record.jdScore}%` : "—";
-        tr.innerHTML = `
-            <td style="font-size:18px;text-align:center;">${rankEmoji}</td>
-            <td><strong>${escapeHTML(record.name || 'Anonymous')}</strong></td>
-            <td>${escapeHTML(record.education || 'Higher Education')}</td>
-            <td>${jdScore}</td>
-            <td style="text-align:right;font-weight:700;">${score}/100</td>
+        row.innerHTML = `
+            <span style="font-size:18px;text-align:center;">${rankEmoji}</span>
+            <span><strong>${escapeHTML(record.name || 'Anonymous')}</strong></span>
+            <span>${escapeHTML(record.education || 'Higher Education')}</span>
+            <span style="text-align:right;font-weight:700;">${score}/100</span>
         `;
-        body.appendChild(tr);
+        body.appendChild(row);
     });
 }
 
