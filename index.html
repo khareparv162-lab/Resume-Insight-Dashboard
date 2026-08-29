@@ -123,16 +123,71 @@
 
         <div class="topbar-right">
 
-            <div class="user-pill">
-
-                <div class="avatar" id="headerAvatar">S</div>
-            
-                <div>
-                    <strong id="headerName">Student</strong>
-                    <span id="headerRole">Resume Analyzer</span>
-                </div>
-
-           </div>
+            <div class="user-pill" id="userProfilePill">
+                
+                    <div class="avatar" id="headerAvatar">S</div>
+                
+                    <div class="user-pill-info">
+                        <strong id="headerName">Student</strong>
+                        <span id="headerRole">Resume Analyzer</span>
+                    </div>
+                
+                    <span class="profile-chevron" id="profileChevron">⌄</span>
+                
+                    <div class="profile-dropdown" id="profileDropdown">
+                
+                        <div class="profile-dropdown-user">
+                
+                            <div
+                                class="profile-dropdown-avatar"
+                                id="dropdownAvatar">
+                                S
+                            </div>
+                
+                            <div>
+                                <strong id="dropdownName">Student</strong>
+                                <span id="dropdownRole">ATS Evaluated</span>
+                            </div>
+                
+                        </div>
+                
+                        <div class="profile-dropdown-divider"></div>
+                
+                        <button
+                            type="button"
+                            class="profile-dropdown-item"
+                            id="viewProfileBtn">
+                
+                            <span>👤</span>
+                            <span>View Profile</span>
+                
+                        </button>
+                
+                        <div class="profile-dropdown-section">
+                            <span>MODE</span>
+                        </div>
+                
+                        <div class="profile-mode-buttons">
+                
+                            <button
+                                type="button"
+                                id="dropdownStudentMode"
+                                class="dropdown-mode-btn active">
+                                Student
+                            </button>
+                
+                            <button
+                                type="button"
+                                id="dropdownAdminMode"
+                                class="dropdown-mode-btn">
+                                Admin
+                            </button>
+                
+                        </div>
+                
+                    </div>
+                
+            </div>
 
         </div>
 
