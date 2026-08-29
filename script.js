@@ -1512,12 +1512,195 @@ if (guestBtn) {
     });
 }
 
-// User Profile Badge Click (Reopen Auth / Switch Account)
-const userBadge = document.querySelector(".user-profile-badge");
-if (userBadge) {
-    userBadge.addEventListener("click", () => {
-        showAuthModal();
-    });
+// HEADER PROFILE DROPDOWN
+
+const userProfilePill =
+    document.getElementById("userProfilePill");
+
+const profileDropdown =
+    document.getElementById("profileDropdown");
+
+const profileChevron =
+    document.getElementById("profileChevron");
+
+const viewProfileBtn =
+    document.getElementById("viewProfileBtn");
+
+const dropdownStudentMode =
+    document.getElementById("dropdownStudentMode");
+
+const dropdownAdminMode =
+    document.getElementById("dropdownAdminMode");
+
+
+function updateProfileDropdownUI() {
+
+    const name =
+        currentUser?.name ||
+        "Guest User";
+
+    const role =
+        currentUser?.college ||
+        currentUser?.role ||
+        "ATS Evaluated";
+
+    const dropdownName =
+        document.getElementById("dropdownName");
+
+    const dropdownRole =
+        document.getElementById("dropdownRole");
+
+    const dropdownAvatar =
+        document.getElementById("dropdownAvatar");
+
+
+    if (dropdownName) {
+        dropdownName.textContent = name;
+    }
+
+    if (dropdownRole) {
+        dropdownRole.textContent = role;
+    }
+
+    if (dropdownAvatar) {
+        dropdownAvatar.textContent =
+            getInitial(name);
+    }
+
+}
+
+
+if (userProfilePill) {
+
+    userProfilePill.addEventListener(
+        "click",
+        (event) => {
+
+            event.stopPropagation();
+
+            const isOpen =
+                profileDropdown.classList.toggle("show");
+
+            if (profileChevron) {
+                profileChevron.textContent =
+                    isOpen ? "↑" : "⌄";
+            }
+
+            updateProfileDropdownUI();
+
+        }
+    );
+
+}
+
+
+document.addEventListener(
+    "click",
+    (event) => {
+
+        if (
+            profileDropdown &&
+            userProfilePill &&
+            !userProfilePill.contains(event.target)
+        ) {
+
+            profileDropdown.classList.remove("show");
+
+            if (profileChevron) {
+                profileChevron.textContent = "⌄";
+            }
+
+        }
+
+    }
+);
+
+
+if (viewProfileBtn) {
+
+    viewProfileBtn.addEventListener(
+        "click",
+        (event) => {
+
+            event.stopPropagation();
+
+            profileDropdown.classList.remove("show");
+
+            if (profileChevron) {
+                profileChevron.textContent = "⌄";
+            }
+
+            showPage("profile");
+
+        }
+    );
+
+}
+
+
+if (dropdownStudentMode) {
+
+    dropdownStudentMode.addEventListener(
+        "click",
+        (event) => {
+
+            event.stopPropagation();
+
+            isAdmin = false;
+
+            sidebar.classList.remove("admin-view");
+
+            studentMode.classList.add("active");
+            adminMode.classList.remove("active");
+
+            dropdownStudentMode.classList.add("active");
+            dropdownAdminMode.classList.remove("active");
+
+            profileDropdown.classList.remove("show");
+
+            if (profileChevron) {
+                profileChevron.textContent = "⌄";
+            }
+
+            showPage("student-dashboard");
+
+        }
+    );
+
+}
+
+
+if (dropdownAdminMode) {
+
+    dropdownAdminMode.addEventListener(
+        "click",
+        async (event) => {
+
+            event.stopPropagation();
+
+            isAdmin = true;
+
+            sidebar.classList.add("admin-view");
+
+            adminMode.classList.add("active");
+            studentMode.classList.remove("active");
+
+            dropdownAdminMode.classList.add("active");
+            dropdownStudentMode.classList.remove("active");
+
+            profileDropdown.classList.remove("show");
+
+            if (profileChevron) {
+                profileChevron.textContent = "⌄";
+            }
+
+            showPage("admin-dashboard");
+
+            await updateAdminDashboard();
+
+        }
+    );
+
 }
 
 // EDIT PROFILE MODAL HANDLERS
