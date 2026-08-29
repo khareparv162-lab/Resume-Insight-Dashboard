@@ -167,28 +167,7 @@ button {
 .sidebar-bottom {
     margin-top: auto;
 }
-.role-switch {
-    display: flex;
-    background: #0b1c29;
-    border: 1px solid #27404f;
-    border-radius: 8px;
-    padding: 3px;
-    margin-bottom: 12px;
-}
-.role-switch-btn {
-    flex: 1;
-    border: 0;
-    background: transparent;
-    color: #8fa5b3;
-    padding: 8px 4px;
-    border-radius: 6px;
-    font-size: 10px;
-    font-weight: 600;
-}
-.role-switch-btn.active {
-    background: var(--surface-0);
-    color: var(--navy);
-}
+
 /* MENU BUTTON */
 .menu-toggle,
 .menu-open {
